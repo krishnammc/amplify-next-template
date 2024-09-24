@@ -402,7 +402,7 @@ export default function App() {
               <li key={todo.id} onClick={() => deleteTodo(todo.id)} style={{cursor:"pointer"}} >{todo.content}</li>
             ))}
           </ul>
-          <div>
+          <div> 
             🥳 App successfully hosted. Try creating a new todo.
             <br />
             <a href="https://docs.amplify.aws/nextjs/start/quickstart/nextjs-app-router-client-components/">

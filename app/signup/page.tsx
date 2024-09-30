@@ -53,6 +53,17 @@ export default function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
   const router = useRouter()
   Amplify.configure(outputs);
+  const awsConfig = {
+    // ... other configurations ...
+    Auth: {
+      mandatorySignIn: true,
+      // ... other auth configurations ...
+    },
+    attributeMapping: {
+      'custom:company_name': 'company_name',
+      'custom:role': 'role',
+    },
+  };
 // const existingConfig = Amplify.getConfig();
 // Amplify.configure({
 //   ...existingConfig,

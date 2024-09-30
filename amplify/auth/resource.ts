@@ -23,10 +23,7 @@ export const auth = defineAuth({
       maxLen:30,
       minLen:1
       },
-    preferredUsername: {
-      mutable: true,
-      required: false
-    }
+
   }
 });
 

@@ -521,7 +521,7 @@ const CustomSignup = () => {
 
   return (
     <Flex bg={BUTTON_TEXT_COLOR} flexDir={"row"} w={"100%"} maxW={"100vw"} maxH={"900px"} alignItems={"center"} justifyContent={"center"}>
-
+      <Button onClick={()=>{router.push("/client/signup")}}>Custom Signup</Button>
       <ThemeProvider theme={theme} >
 
      <Authenticator formFields={formFields}   initialState="signUp" 

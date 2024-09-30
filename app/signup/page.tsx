@@ -390,6 +390,9 @@ const formFields = {
       label: 'address',
   
     },
+    email:{
+      label:"email"
+    },
     phone_number: {
       dialCode: '+227'
     },

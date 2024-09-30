@@ -1,0 +1,14 @@
+/* .amplify-tabs__list{
+    display: none !important;
+    height: "2px";
+} */
+
+[data-amplify-theme="Amplify Container"] {
+  max-width: 1240px; /* adjust the width here */
+  width: 100%;
+}
+
+.Amplify{
+  width: 100% !important;
+  max-width: 1240px !important;
+}

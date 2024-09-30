@@ -488,16 +488,16 @@ const CustomSignup = () => {
     const form = event.currentTarget
     // ... validate inputs
   
-    await signUp({
-      username: form.elements.email.value,
-      password: form.elements.password.value,
-      options:{
-        userAttributes:{
-          'custom:role':form.elements["custom:role"].value
-        }
-      }
+    // await signUp({
+    //   username: form.elements.email.value,
+    //   password: form.elements.password.value,
+    //   options:{
+    //     userAttributes:{
+    //       'custom:role':form.elements["custom:role"].value
+    //     }
+    //   }
 
-    })
+    // })
     router.push("/home")
   }
   return (

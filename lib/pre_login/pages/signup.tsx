@@ -33,17 +33,17 @@ interface SignUpForm extends HTMLFormElement {
 }
 
 
-export const awsConfig = {
-  // ... other configurations ...
-  Auth: {
-    mandatorySignIn: true,
-    // ... other auth configurations ...
-  },
-  attributeMapping: {
-    'custom:company_name': 'company_name',
-    'custom:role': 'role',
-  },
-};
+// export const awsConfig = {
+//   // ... other configurations ...
+//   Auth: {
+//     mandatorySignIn: true,
+//     // ... other auth configurations ...
+//   },
+//   attributeMapping: {
+//     'custom:company_name': 'company_name',
+//     'custom:role': 'role',
+//   },
+// };
 
 
 const SignUpPage = () => {

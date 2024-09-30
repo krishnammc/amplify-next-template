@@ -83,18 +83,18 @@ const SignUpPage = () => {
 
   // ... validate inputs
 
-  await signUp({
-    username:basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email  as string : "",
-    password: store !== null && store !== undefined && store.confirm_password ? store.confirm_password as string : "" ,
+  // await signUp({
+  //   username:basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email  as string : "",
+  //   password: store !== null && store !== undefined && store.confirm_password ? store.confirm_password as string : "" ,
    
-    // options:{
-    //   userAttributes:{
+  //   // options:{
+  //   //   userAttributes:{
        
-    //     'custom:company_name':basicstore !== null && basicstore !== undefined && basicstore.company_name ? basicstore.company_name  as string : "",
-    //   }
-    // }
+  //   //     'custom:company_name':basicstore !== null && basicstore !== undefined && basicstore.company_name ? basicstore.company_name  as string : "",
+  //   //   }
+  //   // }
 
-  })
+  // })
  }
 
  const handleEmailVerified = () => {

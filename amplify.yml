@@ -18,9 +18,4 @@ frontend:
     paths:
       - .next/cache/**/*
       - .npm/**/*
-      - node_modules/**/*,
- override:
-  amplify:
-    auth:
-      userPool:
-        usernameAttributes: ['email']
+      - node_modules/**/*

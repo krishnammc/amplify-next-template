@@ -11,7 +11,13 @@ export const auth = defineAuth({
   },
     
   userAttributes: {
-  
+    
+    userAttributes: {
+      preferredUsername: {
+        mutable: true,
+        required: false
+      }
+    },
     'custom:role':{
     dataType:"String",
     mutable:true,

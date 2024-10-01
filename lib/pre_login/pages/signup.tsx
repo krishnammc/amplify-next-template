@@ -81,7 +81,7 @@ const SignUpPage = () => {
   return new Promise((resolve, reject) => {
     setCredentialInfo(false);
     setSentEmail(true);
-
+    setEmailVerified(true);
     // ... validate inputs
 
     signUp({
@@ -90,6 +90,7 @@ const SignUpPage = () => {
 
       options: {
         userAttributes: {
+          email: basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email as string : "",
           'custom:company_name': basicstore !== null && basicstore !== undefined && basicstore.company_name ? basicstore.company_name as string : "",
         }
       }
@@ -113,7 +114,7 @@ const SignUpPage = () => {
       { basicInfo && <BasicInfoForm onSubmit = {SubmitedBasicInfo} /> }
       { addressInfo && <AddressInfoForm onSubmit = {SubmitedAddressInfo} moveBack = {BacktoBasicInfo}/> }
       { credentialInfo && <CredentialInfo onSubmit = {SubmitedCredentialInfo} moveBack = {BacktoAddressInfo}/> }
-      { sentEmail && <CheckEmail onSubmit = {handleEmailVerified}/> }
+      {/* { sentEmail && <CheckEmail onSubmit = {handleEmailVerified}/> } */}
       { emailVerified && <Emailverified /> }
     </Flex>
   );

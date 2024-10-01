@@ -6,6 +6,8 @@ import TextField from '../../components/text_field';
 import { Flex, GridItem, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { PRE_LOGIN_PAGE_HEADING_TEXT_COLOR, PRE_LOGIN_PAGE_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT } from '@/lib/app/app_constants';
 import { SignUpPageLabelDataValues } from '@/lib/interfaces/incorporation/pre_login_form/interfaces';
+import { confirmSignUp } from 'aws-amplify/auth';
+import useSessionStorage from '@/lib/hooks/use_sessionstorage';
 
 export const SignUpPasswordEnterData:SignUpPageLabelDataValues[] = [
   {
@@ -34,6 +36,7 @@ const Emailverified = () => {
     })
   );
   //console.log("Initial Data :", data);
+  const [basicstore, setBasicStorage] = useSessionStorage<Record<string, string | string[] | number> | null>('Basic Info Form Values');
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>, id: string, field: SignUpPageLabelDataValues) => {
     const tempData: typeof data = JSON.parse(JSON.stringify(data));
@@ -65,13 +68,17 @@ const Emailverified = () => {
     return tempData.every((input) => input.error == null);
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!submitValidate()) return;
+    // if (!submitValidate()) return;
+    const { isSignUpComplete, nextStep } = await confirmSignUp({
+      username:  basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email as string : "",
+      confirmationCode: data[0].value as string
+    }); 
     console.log("Answer Data :", data);
-    router.push('/client/login')
+    // router.push('/client/login')
   }
-
+console.log(data)
   return (
     <>
     <Flex flexDir = {'column'} gap = {['4px', '4px', '16px']} color = {PRE_LOGIN_PAGE_HEADING_TEXT_COLOR}>

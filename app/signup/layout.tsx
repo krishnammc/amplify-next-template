@@ -3,8 +3,14 @@ import { BUTTON_TEXT_COLOR, BUTTON_BG, FILE_BORDER_COLOR, PRE_LOGIN_PAGE_MAX_WID
 import { Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import LoginPageCarousel from "@/lib/pre_login/components/login_page_ carousel";
+import { Hub } from 'aws-amplify/utils';
 
 const PreLoginAppLayout = ({ children }:{ children: React.ReactNode }) => {
+
+
+  Hub.listen('auth', (data) => {
+    console.log(data)
+  });
 
   return (
     <Flex w = {'100vw'} maxH = {'100vh'} h={"100%"} justifyContent = {'center'} alignItems = {'center'} >

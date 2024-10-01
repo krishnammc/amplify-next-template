@@ -9,6 +9,7 @@ export const auth = defineAuth({
     email: true,
     phone:true,
   },
+ 
     
   userAttributes: {
     
@@ -28,7 +29,7 @@ export const auth = defineAuth({
       mutable:true,
       maxLen:30,
       minLen:1
-      },
+    },
 
   }
 });

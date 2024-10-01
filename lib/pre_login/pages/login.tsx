@@ -7,6 +7,7 @@ import ButtonField from '../components/button_field';
 import {  validateField } from '@/lib/utlils/utill_methods';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { signIn } from 'aws-amplify/auth'
 import { LoginPageLabelDataValues } from '@/lib/interfaces/incorporation/pre_login_form/interfaces';
 
 export const LoginLabelData: LoginPageLabelDataValues[] = [
@@ -78,11 +79,28 @@ const LoginPage = () => {
     return tempData.every((input) => input.error == null);
   }
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!submitValidate()) return;
-    console.log("Answer Data :", data);
-    router.push('/client/otp_verify')
+
+
+    return new Promise((resolve, reject) => {
+      
+
+ signIn({
+  username: data[0].value as string,
+  password: data[1].value as string
+}).then((response) => {
+        resolve(response);
+    router.push('/home')
+      })
+      .catch((error) => {
+        reject(error);
+      });
+    });
+
+
+
   }
 
   return (

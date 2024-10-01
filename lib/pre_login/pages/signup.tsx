@@ -6,12 +6,14 @@ import CredentialInfo from '../forms/signup_forms/credential_info';
 import Emailverified from '../forms/signup_forms/email_verified';
 import CheckEmail from '../forms/signup_forms/check_email';
 import { Flex } from '@chakra-ui/react';
-import { signUp } from 'aws-amplify/auth';
+import { fetchUserAttributes, getCurrentUser, signUp } from 'aws-amplify/auth';
 import useSessionStorage from '@/lib/hooks/use_sessionstorage';
 import { generateClient } from 'aws-amplify/api';
 import { Amplify } from 'aws-amplify';
 import { Schema } from '@/amplify/data/resource';
 import outputs from "@/amplify_outputs.json";
+import { Hub } from 'aws-amplify/utils';
+
 
 
 Amplify.configure(outputs);
@@ -56,7 +58,7 @@ const SignUpPage = () => {
   const [emailVerified, setEmailVerified] = useState<boolean>(false);
   const [store, setStorage] = useSessionStorage<Record<string, string | string[] | number> | null>('Credential Info Form Values');
   const [basicstore, setBasicStorage] = useSessionStorage<Record<string, string | string[] | number> | null>('Basic Info Form Values');
-  
+ 
  const SubmitedBasicInfo = () => {
   setBasicInfo(false);
   setAddressInfo(true);

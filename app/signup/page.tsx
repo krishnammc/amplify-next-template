@@ -49,21 +49,13 @@ export const awsConfig = {
   },
 };
 
+
+
 export default function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
   const router = useRouter()
   Amplify.configure(outputs);
-  const awsConfig = {
-    // ... other configurations ...
-    Auth: {
-      mandatorySignIn: true,
-      // ... other auth configurations ...
-    },
-    attributeMapping: {
-      'custom:company_name': 'company_name',
-      'custom:role': 'role',
-    },
-  };
+
 // const existingConfig = Amplify.getConfig();
 // Amplify.configure({
 //   ...existingConfig,
@@ -535,7 +527,7 @@ const CustomSignup = () => {
 
   return (
     <Flex bg={BUTTON_TEXT_COLOR} flexDir={"row"} w={"100%"} maxW={"100vw"} maxH={"900px"} alignItems={"center"} justifyContent={"center"}>
-      <Button onClick={()=>{router.push("/client/signup")}}>Custom Signup</Button>
+      {/* <Button onClick={()=>{router.push("/client/signup")}}>Custom Signup</Button> */}
       <ThemeProvider theme={theme} >
 
      <Authenticator formFields={formFields}   initialState="signUp" 

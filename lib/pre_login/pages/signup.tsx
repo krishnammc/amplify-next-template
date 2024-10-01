@@ -78,23 +78,29 @@ const SignUpPage = () => {
  }
 
  const SubmitedCredentialInfo = async () => {
-  setCredentialInfo(false);
-  setSentEmail(true);
+  return new Promise((resolve, reject) => {
+    setCredentialInfo(false);
+    setSentEmail(true);
 
-  // ... validate inputs
+    // ... validate inputs
 
-  // await signUp({
-  //   username:basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email  as string : "",
-  //   password: store !== null && store !== undefined && store.confirm_password ? store.confirm_password as string : "" ,
-   
-  //   // options:{
-  //   //   userAttributes:{
-       
-  //   //     'custom:company_name':basicstore !== null && basicstore !== undefined && basicstore.company_name ? basicstore.company_name  as string : "",
-  //   //   }
-  //   // }
+    signUp({
+      username: basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email as string : "",
+      password: store !== null && store !== undefined && store.confirm_password ? store.confirm_password as string : "",
 
-  // })
+      options: {
+        userAttributes: {
+          'custom:company_name': basicstore !== null && basicstore !== undefined && basicstore.company_name ? basicstore.company_name as string : "",
+        }
+      }
+    })
+    .then((response) => {
+      resolve(response);
+    })
+    .catch((error) => {
+      reject(error);
+    });
+  });
  }
 
  const handleEmailVerified = () => {

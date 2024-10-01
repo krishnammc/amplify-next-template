@@ -31,7 +31,7 @@ const TextField = ({label, type, value, values, placeholder, inputProps, format,
       { label && 
       <FormLabel title = {'Montserrat Medium 16px'} fontFamily = {PRE_LOGIN_LABEL_TEXT_FONT_FAMILY} fontSize = {PRE_LOGIN_LABEL_TEXT_FONT_SIZE} fontWeight = {PRE_LOGIN_LABEL_TEXT_FONT_WEIGHT}>{label}</FormLabel>
       }
-      { (format == "PASSWORD" || "CONFIRM_PASSWORD") ?
+      { (format == "PASSWORD" || format == "CONFIRM_PASSWORD") ?
         <InputGroup maxW = {w} w = {'100%'} h = {h} borderWidth = {'1px'}  borderRadius = {'6px'} borderColor = {PRE_LOGIN_INPUT_BORDER_COLOR}>
           <Input 
             {...inputProps}

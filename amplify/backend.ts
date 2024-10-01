@@ -18,6 +18,9 @@ const backend = defineBackend({
   myApiFunction,
 });
 
+const { cfnUserPool } = backend.auth.resources.cfnResources;
+cfnUserPool.usernameAttributes = []
+
 // create a new API stack
 const apiStack = backend.createStack("api-stack");
 

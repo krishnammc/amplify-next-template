@@ -6,7 +6,7 @@ import TextField from '../../components/text_field';
 import { Flex, GridItem, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { PRE_LOGIN_PAGE_HEADING_TEXT_COLOR, PRE_LOGIN_PAGE_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT } from '@/lib/app/app_constants';
 import { SignUpPageLabelDataValues } from '@/lib/interfaces/incorporation/pre_login_form/interfaces';
-import { confirmSignUp } from 'aws-amplify/auth';
+import { confirmSignUp, signIn } from 'aws-amplify/auth';
 import useSessionStorage from '@/lib/hooks/use_sessionstorage';
 
 export const SignUpPasswordEnterData:SignUpPageLabelDataValues[] = [
@@ -37,6 +37,7 @@ const Emailverified = () => {
   );
   //console.log("Initial Data :", data);
   const [basicstore, setBasicStorage] = useSessionStorage<Record<string, string | string[] | number> | null>('Basic Info Form Values');
+  const [store, setStorage] = useSessionStorage<Record<string, string | string[] | number> | null>('Credential Info Form Values');
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>, id: string, field: SignUpPageLabelDataValues) => {
     const tempData: typeof data = JSON.parse(JSON.stringify(data));
@@ -75,8 +76,18 @@ const Emailverified = () => {
       username:  basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email as string : "",
       confirmationCode: data[0].value as string
     }); 
-    console.log("Answer Data :", data);
-    // router.push('/client/login')
+    if(isSignUpComplete){
+      // await signIn({
+      //   username: basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email as string : "",
+      //   password: store !== null && store !== undefined && store.password ? store.password  as string : "",
+      //   options: {
+      //       authFlowType: 'USER_PASSWORD_AUTH'
+      //   }
+      // })
+      console.log("Answer Data :", data);
+      router.push('/home')
+    }
+   
   }
 console.log(data)
   return (

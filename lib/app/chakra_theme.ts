@@ -5,53 +5,53 @@ import { extendTheme } from '@chakra-ui/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// export const montserrat = Montserrat({
-//   subsets: ['latin'],
-//   weight: [
-//     '300',  //Light
-//     '400',  //Regular
-//     '500',  //Medium
-//     '600',  //Semi Bold
-//     '700',  //Bold
-//     '800',  //Extra Bold
-//     '900'   //Black
-//   ],
-// });
-
-export const montserrat = localFont({
-  src: [
-    {
-      path: '../../public/fonts/Montserrat-Light.ttf',
-      weight: '300'
-    },
-    {
-      path: '../../public/fonts/Montserrat-Regular.ttf',
-      weight: '400'  // Book (often considered Regular)
-    },
-    
-    {
-      path: '../../public/fonts/Montserrat-Medium.ttf',
-      weight: '500'
-    },
-    {
-      path: '../../public/fonts/Montserrat-SemiBold.ttf',
-      weight: '600'
-    },
-    {
-      path: '../../public/fonts/Montserrat-Bold.ttf',
-      weight: '700'  // Heavy (commonly Bold or Semi Bold)
-    },
-    {
-      path: '../../public/fonts/Montserrat-ExtraBold.ttf',
-      weight: '800'  // Book (often considered Regular)
-    },
-    {
-      path: '../../public/fonts/Montserrat-Black.ttf',
-      weight: '900'
-    },
+export const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: [
+    '300',  //Light
+    '400',  //Regular
+    '500',  //Medium
+    '600',  //Semi Bold
+    '700',  //Bold
+    '800',  //Extra Bold
+    '900'   //Black
   ],
-  variable: '--montserrat'
 });
+
+// export const montserrat = localFont({
+//   src: [
+//     {
+//       path: '../../public/fonts/Montserrat-Light.ttf',
+//       weight: '300'
+//     },
+//     {
+//       path: '../../public/fonts/Montserrat-Regular.ttf',
+//       weight: '400'  // Book (often considered Regular)
+//     },
+    
+//     {
+//       path: '../../public/fonts/Montserrat-Medium.ttf',
+//       weight: '500'
+//     },
+//     {
+//       path: '../../public/fonts/Montserrat-SemiBold.ttf',
+//       weight: '600'
+//     },
+//     {
+//       path: '../../public/fonts/Montserrat-Bold.ttf',
+//       weight: '700'  // Heavy (commonly Bold or Semi Bold)
+//     },
+//     {
+//       path: '../../public/fonts/Montserrat-ExtraBold.ttf',
+//       weight: '800'  // Book (often considered Regular)
+//     },
+//     {
+//       path: '../../public/fonts/Montserrat-Black.ttf',
+//       weight: '900'
+//     },
+//   ],
+//   variable: '--montserrat'
+// });
 
 export const avenir = localFont({
   src: [

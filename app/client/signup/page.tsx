@@ -9,6 +9,7 @@ const Page = () => {
       <SignUpPage /> 
     </>
   );
+  
 }
 
 export default Page

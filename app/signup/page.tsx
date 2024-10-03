@@ -8,7 +8,7 @@ import { Amplify } from "aws-amplify";
 import outputs from "@/amplify_outputs.json";
 import "@aws-amplify/ui-react/styles.css";
 import { Authenticator, CheckboxField, Theme, ThemeProvider, useAuthenticator, View } from '@aws-amplify/ui-react';
-import { SignUpInput, SignUpOutput, fetchUserAttributes, signIn, signUp } from 'aws-amplify/auth';
+import { SignUpInput, SignUpOutput, fetchUserAttributes, getCurrentUser, signIn, signUp } from 'aws-amplify/auth';
 import '@aws-amplify/ui-react/styles.css';
 import { Button, Flex, Heading, useTheme,Image,Text, background, FormControl, FormLabel, Input, InputGroup, Tab, TabList, TabPanel, TabPanels, Tabs, Select } from "@chakra-ui/react";
 import { signOut } from 'aws-amplify/auth';
@@ -56,7 +56,7 @@ interface SignUpForm extends HTMLFormElement {
 export default function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
   const router = useRouter()
-  Amplify.configure(outputs);
+
 
 // const existingConfig = Amplify.getConfig();
 // Amplify.configure({
@@ -475,6 +475,14 @@ async function handleSignOut() {
   await signOut({global:true})
 }
 
+
+
+const status = async() => {
+  const user = await getCurrentUser();
+console.log(user)
+}
+
+
  
 const CustomSignup = () => {
   async function handleSubmit(event: FormEvent<SignUpForm>) {
@@ -589,7 +597,7 @@ const CustomSignup = () => {
     
       <h1>My todos</h1>
 
-      <button onClick={createTodo} style={{color:"black"}}>+ new</button>
+      <button onClick={()=>{status()}} style={{color:"black"}}>+ new</button>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id} onClick={() => deleteTodo(todo.id)} style={{cursor:"pointer", color:"#000"}}  >{todo.content}</li>

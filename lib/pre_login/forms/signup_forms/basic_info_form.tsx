@@ -67,7 +67,7 @@ export const SignUpBasicInfoLabelData:SignUpPageLabelDataValues[] = [
     help_text: 'Input your Phone Number',
     error_message: 'Please Enter Phone Number',
     format_error_message: 'Phone Number Contains Numbers only',
-    format_validation: "NUMBER",
+    format_validation: "NONE",
     values: []
   }
 ]

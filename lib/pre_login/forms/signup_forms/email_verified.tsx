@@ -6,7 +6,7 @@ import TextField from '../../components/text_field';
 import { Flex, GridItem, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { PRE_LOGIN_PAGE_HEADING_TEXT_COLOR, PRE_LOGIN_PAGE_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT } from '@/lib/app/app_constants';
 import { SignUpPageLabelDataValues } from '@/lib/interfaces/incorporation/pre_login_form/interfaces';
-import { confirmSignUp, signIn } from 'aws-amplify/auth';
+import { autoSignIn, confirmSignUp, signIn } from 'aws-amplify/auth';
 import useSessionStorage from '@/lib/hooks/use_sessionstorage';
 
 export const SignUpPasswordEnterData:SignUpPageLabelDataValues[] = [
@@ -77,13 +77,10 @@ const Emailverified = () => {
       confirmationCode: data[0].value as string
     }); 
     if(isSignUpComplete){
-      // await signIn({
-      //   username: basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email as string : "",
-      //   password: store !== null && store !== undefined && store.password ? store.password  as string : "",
-      //   options: {
-      //       authFlowType: 'USER_PASSWORD_AUTH'
-      //   }
-      // })
+      //  const  user  = await autoSignIn();
+      //   console.log('Auto signed in successfully!');
+      //   console.log(user);
+      // // await autoSignIn()
       console.log("Answer Data :", data);
       router.push('/home')
     }

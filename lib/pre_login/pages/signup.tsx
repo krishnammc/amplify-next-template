@@ -6,14 +6,13 @@ import CredentialInfo from '../forms/signup_forms/credential_info';
 import Emailverified from '../forms/signup_forms/email_verified';
 import CheckEmail from '../forms/signup_forms/check_email';
 import { Flex } from '@chakra-ui/react';
-import { fetchUserAttributes, getCurrentUser, signUp } from 'aws-amplify/auth';
+import { autoSignIn, fetchUserAttributes, getCurrentUser, signIn, signUp } from 'aws-amplify/auth';
 import useSessionStorage from '@/lib/hooks/use_sessionstorage';
 import { generateClient } from 'aws-amplify/api';
 import { Amplify } from 'aws-amplify';
 import { Schema } from '@/amplify/data/resource';
 import outputs from "@/amplify_outputs.json";
 import { Hub } from 'aws-amplify/utils';
-
 
 
 Amplify.configure(outputs);
@@ -25,9 +24,10 @@ interface SignUpFormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement
   password: HTMLInputElement
   phone_number:HTMLInputElement
+  family_name:HTMLInputElement
+  given_name:HTMLInputElement
   confirm_password: HTMLInputElement
   'custom:role':HTMLInputElement
-
 }
 
 interface SignUpForm extends HTMLFormElement {
@@ -93,12 +93,18 @@ const SignUpPage = () => {
       options: {
         userAttributes: {
           email: basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email as string : "",
+          family_name:basicstore !== null && basicstore !== undefined && basicstore.first_name ? basicstore.first_name as string : "",
+          given_name:basicstore !== null && basicstore !== undefined && basicstore.last_name ? basicstore.last_name as string : "",
+          phone_number:basicstore !== null && basicstore !== undefined && basicstore.phone_number ? basicstore.phone_number as string : "",
           'custom:company_name': basicstore !== null && basicstore !== undefined && basicstore.company_name ? basicstore.company_name as string : "",
-        }
+        },autoSignIn:true
       }
+      
+      
     })
     .then((response) => {
       resolve(response);
+      
     })
     .catch((error) => {
       reject(error);

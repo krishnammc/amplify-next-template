@@ -16,6 +16,7 @@ const AppLayout = ({ children }:{ children: React.ReactNode }) => {
       overflowX = {'hidden'}
       bg = {OVERALL_PAGE_BG}
     >
+      
       <Flex 
         maxW = {CONTENT_MAX_WIDTH} 
         flexDir = {'column'}

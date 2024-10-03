@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { signIn } from 'aws-amplify/auth'
 import { LoginPageLabelDataValues } from '@/lib/interfaces/incorporation/pre_login_form/interfaces';
+import { Amplify } from 'aws-amplify';
+import outputs from "@/amplify_outputs.json";
 
 export const LoginLabelData: LoginPageLabelDataValues[] = [
   {
@@ -30,6 +32,8 @@ export const LoginLabelData: LoginPageLabelDataValues[] = [
     format_validation: "PASSWORD"
   }
 ]
+
+Amplify.configure(outputs);
 
 const LoginPage = () => {
 
@@ -83,24 +87,16 @@ const LoginPage = () => {
     e.preventDefault();
     if (!submitValidate()) return;
 
-
-    return new Promise((resolve, reject) => {
-      
-
- signIn({
-  username: data[0].value as string,
-  password: data[1].value as string
-}).then((response) => {
-        resolve(response);
-    router.push('/home')
-      })
-      .catch((error) => {
-        reject(error);
+    try {
+      const response = await signIn({
+        username: data[0].value as string,
+        password: data[1].value as string
       });
-    });
-
-
-
+      router.push('/home');
+    } catch (error) {
+      console.error(error);
+      // Display an error message to the user
+    }
   }
 
   return (

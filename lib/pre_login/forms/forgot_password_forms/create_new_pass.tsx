@@ -11,6 +11,15 @@ import { format } from 'path';
 
 export const ForgotPasswordPageLabelData:ForgotPasswordPageLabelDataValues[] = [
   {
+    id: 'verfication_code',
+    type: 'TEXT',
+    label: 'Verification Code',
+    values: [],
+    help_text: 'Input your code',
+    error_message: "verfication Code should be entered",
+    format_error_message: "Password must be more than 8 characters. With a combination of Alphapetic Letters, Numbers and Special Characters ",
+    format_validation: 'NONE'
+  },{
     id: 'password',
     type: 'TEXT',
     label: 'Password',
@@ -49,7 +58,7 @@ export const ForgotPasswordPageLabelData:ForgotPasswordPageLabelDataValues[] = [
 
 
 export interface updatePassProps {
-  onSubmit:() => void
+  onSubmit:(password:string,code:string) => void
 }
 
 const CreateNewPassword = ({onSubmit}:updatePassProps) => {
@@ -103,6 +112,21 @@ const CreateNewPassword = ({onSubmit}:updatePassProps) => {
         tempData[index].value = value;
         tempData[index].error = validateResult.isEmpty ? "EMPTY" : validateResult.isContainsFormatError ? "FORMAT" : null;
       }
+    }
+
+    else if(field.format_validation === 'NONE'){
+
+      const passwordIndex = tempData.findIndex((field) => field.format == 'NONE');
+
+          
+      if (passwordIndex >= 0) {
+        const passwordValue = tempData[passwordIndex].value;
+        validateResult = validateField(value, 'NONE', passwordValue.toString());
+        tempData[index].value = value;
+        tempData[index].error = validateResult.isEmpty ? "EMPTY" : validateResult.isContainsFormatError ? "FORMAT" : null;
+      }
+
+
     }
     setData(tempData)
   }
@@ -178,9 +202,9 @@ const CreateNewPassword = ({onSubmit}:updatePassProps) => {
     e.preventDefault();
     if (!submitValidate()) return;
     console.log("Answer Data :", data);
-    onSubmit();
+    onSubmit(data[0].value as string,data[2].value as string);
   }
-
+console.log(data)
   return (
     <>
       <Flex flexDir = {'column'} gap = {['4px', '4px', '16px']} color = {PRE_LOGIN_PAGE_HEADING_TEXT_COLOR}>

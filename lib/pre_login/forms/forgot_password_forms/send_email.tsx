@@ -10,8 +10,9 @@ import { ForgotPasswordPageLabelDataValues } from '@/lib/interfaces/incorporatio
 import { useRouter } from 'next/navigation';
 import TextField from '../../components/text_field';
 
+
 export interface CheckEmailProps {
-  onSubmit:() => void
+  onSubmit:(email:string) => void
 }
 
 export const ForgotPasswordLabelData: ForgotPasswordPageLabelDataValues[] = [
@@ -79,7 +80,7 @@ const SendEmail = ({onSubmit}:CheckEmailProps) => {
     e.preventDefault();
     if (!submitValidate()) return;
     console.log("Answer Data :", data);
-    onSubmit();
+    onSubmit(data[0].value as string);
   }
 
   return (

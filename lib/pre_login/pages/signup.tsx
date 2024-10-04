@@ -79,11 +79,16 @@ const SignUpPage = () => {
   setAddressInfo(true);
  }
 
+//  const NextVerified = () => {
+//   setEmailVerified(true);
+//   setSentEmail(false);
+//  }
+
  const SubmitedCredentialInfo = async () => {
   return new Promise((resolve, reject) => {
     setCredentialInfo(false);
     setSentEmail(true);
-    setEmailVerified(true);
+   
     // ... validate inputs
 
     signUp({
@@ -122,7 +127,7 @@ const SignUpPage = () => {
       { basicInfo && <BasicInfoForm onSubmit = {SubmitedBasicInfo} /> }
       { addressInfo && <AddressInfoForm onSubmit = {SubmitedAddressInfo} moveBack = {BacktoBasicInfo}/> }
       { credentialInfo && <CredentialInfo onSubmit = {SubmitedCredentialInfo} moveBack = {BacktoAddressInfo}/> }
-      {/* { sentEmail && <CheckEmail onSubmit = {handleEmailVerified}/> } */}
+      { sentEmail && <CheckEmail email={basicstore !== null && basicstore !== undefined && basicstore.email ? basicstore.email as string : ""}  onSubmit = {handleEmailVerified}/> }
       { emailVerified && <Emailverified /> }
     </Flex>
   );

@@ -1,14 +1,12 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import OnBoardingPage from "@/lib/onboarding_pages/onboarding_page"
+
 
 function page() {
-const router = useRouter();
-useEffect(()=>{
-router.push("/signup")
-},[])
+
   return (
-    <div>page</div>
+    <>
+    <OnBoardingPage />
+    </>
   )
 }                                                                                                                 
 

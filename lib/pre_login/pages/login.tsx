@@ -1,6 +1,6 @@
 "use client"
 import { PRE_LOGIN_PAGE_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_BODY_FONT_FAMILY, PRE_LOGIN_PAGE_BODY_FONT_SIZE, PRE_LOGIN_PAGE_BODY_FONT_WEIGHT, PRE_LOGIN_LINK_HOVER_COLOR, PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE, PRE_LOGIN_BUTTON_TEXT_FONT_FAMILY, PRE_LOGIN_BUTTON_TEXT_FONT_SIZE, PRE_LOGIN_BUTTON_TEXT_FONT_WEIGHT, PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_HEADING_TEXT_COLOR, PRE_LOGIN_OR_TEXT_BORDER_COLOR, PRE_LOGIN_BUTTON_TEXT_COLOR, PRE_LOGIN_SIGNPASS_BUTTON_TEXT_COLOR, PRE_LOGIN_SIGNPASS_BUTTON_SUB_TEXT_COLOR, PRE_LOGIN_BUTTON_BACKGROUND_COLOR, PRE_LOGIN_BUTTON_BORDER_COLOR, PRE_LOGIN_INPUT_BACKGROUND_COLOR } from '@/lib/app/app_constants';
-import { Button, Checkbox, Flex, FormControl, Heading, Text } from '@chakra-ui/react';
+import { Button, Checkbox, Flex, FormControl, Heading, Text, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import TextField from '../components/text_field';
 import ButtonField from '../components/button_field';
@@ -40,6 +40,8 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const router = useRouter();
+  const toast = useToast();
+
  
   const [data, setData] = useState(
     LoginLabelData.map((field) => {
@@ -92,9 +94,25 @@ const LoginPage = () => {
         username: data[0].value as string,
         password: data[1].value as string
       });
+      
       router.push('/home');
     } catch (error) {
+      if (error instanceof Error) {
+        if(error.name=="NotAuthorizedException"){
+          toast({
+            title: 'Invalid Credential',
+            description: "this user details is not matched",
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
+        }
+        // console.log(`Error: ${error.}`)
+      } else {
+        console.log(`Unknown error: ${error}`)
+      }
       console.error(error);
+      
       // Display an error message to the user
     }
   }
@@ -180,7 +198,7 @@ const LoginPage = () => {
 
       <Flex justifyContent = {'center'} alignItems = {'center'} gap = {'10px'} h = {'32px'}>
         <Text title = {'Helvetica Regular 16px'} fontFamily = {PRE_LOGIN_PAGE_BODY_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_BODY_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_BODY_FONT_WEIGHT} >Don’t have an account?</Text>
-        <Link href = {'/client/signup'} >
+        <Link href = {'/'} >
           <Text title={'Montserrat Bold 18px'} fontFamily = {PRE_LOGIN_BUTTON_TEXT_FONT_FAMILY}  fontSize = {PRE_LOGIN_BUTTON_TEXT_FONT_SIZE} fontWeight = {PRE_LOGIN_BUTTON_TEXT_FONT_WEIGHT} _hover = {{color:PRE_LOGIN_LINK_HOVER_COLOR}} >Sign Up</Text>
         </Link>
       </Flex>

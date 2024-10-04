@@ -4,17 +4,34 @@ import { Button, Flex, Heading, Text } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import CreateNewPassword from '../forms/forgot_password_forms/create_new_pass';
 import { useRouter } from 'next/navigation';
+import { confirmResetPassword } from 'aws-amplify/auth';
+import useSessionStorage from '@/lib/hooks/use_sessionstorage';
+import { Amplify } from 'aws-amplify';
+import outputs from "@/amplify_outputs.json";
 
+Amplify.configure(outputs);
 
 const ResetPasswordPage = () => {
   const [passUpdated, setPassUpdated] = useState<boolean>(false);
+  const [store, setStorage] = useSessionStorage<string>('email_verfication');
   const router = useRouter();
 
   const handleSubmit = () => {
     setPassUpdated(true);
   }
 
-  const onSubmit = () => {
+  const onSubmit = async(code:string,password:string,) => {
+
+    await confirmResetPassword({
+      username: store && store?store:"",
+      confirmationCode: code,
+      newPassword: password,
+    });
+    setPassUpdated(true);
+  
+  }
+
+  const onSubmitNext = () => {
     router.push('/client/login');
   }
 
@@ -29,13 +46,13 @@ const ResetPasswordPage = () => {
             <Text fontFamily = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT}>You have successfully changed your password. Now you can directly access to the dashboard.</Text>
           </Flex>
           <Flex>
-            <Button onClick={onSubmit} w = {'100%'} h = {'40px'} type = {"submit"} bg={BUTTON_LINEAR_RIGHT_COLOR} _hover = {{ bgGradient: `linear(180deg, ${BUTTON_LINEAR_LEFT_COLOR}, ${BUTTON_LINEAR_RIGHT_COLOR})`}} borderRadius = {'4px'} >
+            <Button onClick={onSubmitNext} w = {'100%'} h = {'40px'} type = {"submit"} bg={BUTTON_LINEAR_RIGHT_COLOR} _hover = {{ bgGradient: `linear(180deg, ${BUTTON_LINEAR_LEFT_COLOR}, ${BUTTON_LINEAR_RIGHT_COLOR})`}} borderRadius = {'4px'} >
               <Text color = {PRE_LOGIN_BUTTON_TEXT_COLOR} fontFamily = {PRE_LOGIN_BUTTON_TEXT_FONT_FAMILY} fontSize = {PRE_LOGIN_BUTTON_TEXT_FONT_SIZE} fontWeight = {PRE_LOGIN_BUTTON_TEXT_FONT_WEIGHT} >Proceed to Dashboard </Text>
             </Button>
           </Flex>
         </>
       :
-        <CreateNewPassword onSubmit = {handleSubmit}/>
+        <CreateNewPassword onSubmit = {onSubmit}/>
       }
     </Flex>
   );

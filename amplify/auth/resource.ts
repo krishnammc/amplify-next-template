@@ -9,25 +9,30 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 export const auth = defineAuth({
   
   loginWith: {
-    email: true,
-    phone:true,
+  
+    email: {
+      verificationEmailStyle: "CODE",
+      verificationEmailSubject: "Welcome to my app!",
+      verificationEmailBody: (createCode) => `Use this code to confirm your account: ${createCode()},Welcome to the APP!!!!!`,
+    },
   },
+  
 
+  accountRecovery: 'EMAIL_ONLY',
 
   userAttributes: {
     
-  
-      preferredUsername: {
-        mutable: true,
-        required: false
-      
+    preferredUsername: {
+      mutable: true,
+      required: false
     },
     'custom:role':{
-    dataType:"String",
-    mutable:true,
-    maxLen:10,
-    minLen:1
-    }, 'custom:company_name':{
+      dataType:"String",
+      mutable:true,
+      maxLen:10,
+      minLen:1
+    }, 
+    'custom:company_name':{
       dataType:"String",
       mutable:true,
       maxLen:30,

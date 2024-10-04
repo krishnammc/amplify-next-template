@@ -11,7 +11,7 @@ function Middelware({ children }:{ children: React.ReactNode }) {
     const router = useRouter();
     const pathName = usePathname();
     const protectedPages:string[] = ["/home","/dashboard"];
-    const preLoginPages:string[] = ["/client/signup","/client/login"];
+    const preLoginPages:string[] = ["/client/signup","/client/login","/"];
  
     useEffect(()=>{
         if(protectedPages.includes(pathName)){

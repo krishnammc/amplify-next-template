@@ -1,11 +1,12 @@
 "use client"
 import { Button, Flex, Text, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react'
-import { BOTTOM_BUTTON_BORDER_COLOR, BUTTON_BG, BUTTON_LINEAR_LEFT_COLOR, BUTTON_LINEAR_RIGHT_COLOR, BUTTON_TEXT_COLOR, BUTTON_TEXT_FONT_WEIGHT, FILE_BORDER_COLOR, HEADER_ICON_COLOR, HEADING_FONT_SIZE, LABEL_TEXT_FONT_WEIGHT, HEADING_ICON_ACTIVE_COLOR, ONBOARDING_PAGE_MAX_WIDTH, TEXT_COLOR, ONBOARDING_TEXT_FONT_SIZE, ONBOARDING_TEXT_FONT_WEIGHT, SECTION_MARGIN_Y, TEXT_FONT_SIZE } from '../app/app_constants';
 import Image from 'next/image';
-import ButtonField from '../pre_login/components/button_field';
 import { useRouter } from 'next/navigation';
-import { onBoardingPageValues } from '../app/constant_data';
+import { onBoardingPageValues } from '@/lib/app/constant_data';
+import ButtonField from '../components/button_field';
+import { BUTTON_TEXT_COLOR, ONBOARDING_PAGE_MAX_WIDTH, HEADING_FONT_SIZE, LABEL_TEXT_FONT_WEIGHT, HEADING_ICON_ACTIVE_COLOR, FILE_BORDER_COLOR, ONBOARDING_TEXT_FONT_SIZE, ONBOARDING_TEXT_FONT_WEIGHT, BOTTOM_BUTTON_BORDER_COLOR, BUTTON_BG, BUTTON_LINEAR_RIGHT_COLOR, TEXT_FONT_SIZE, BUTTON_TEXT_FONT_WEIGHT } from '@/lib/app/app_constants';
+
 
 const OnBoardingPage = () => {
 
@@ -41,7 +42,7 @@ const OnBoardingPage = () => {
   }
 
   return (
-    <Flex flexDir={"column"}>
+    <>
       <Flex w = {'100vw'} bg = {BUTTON_TEXT_COLOR} h = {['72px', '64px']} justifyContent = {['center', 'space-between']} alignItems = {'center'} p = {'20px 40px 20px 40px'}>
 
         {/* Flash Logo */}
@@ -55,7 +56,7 @@ const OnBoardingPage = () => {
 
       </Flex>
 
-      <Flex flexDir = {'column'} w = {'100%'} h = {'100%'} mt = {['120px', '130px']} alignItems = {'center'}>
+      <Flex flexDir = {'column'} w = {'100%'}  h = {'100%'} mt = {['120px', '130px']} alignItems = {'center'}>
         <Flex flexDir = {'column'} maxW = {ONBOARDING_PAGE_MAX_WIDTH} w = {'100%'} gap = {'12px'}>
           {/* Page Heading */}
           <Flex justifyContent = {'center'} w = {'100%'}>
@@ -98,7 +99,7 @@ const OnBoardingPage = () => {
           <Text color = {BUTTON_TEXT_COLOR} fontSize = {TEXT_FONT_SIZE} fontWeight = {BUTTON_TEXT_FONT_WEIGHT} >Next</Text>
         </Button>
       </Flex>
-    </Flex>
+    </>
   );
 }
 

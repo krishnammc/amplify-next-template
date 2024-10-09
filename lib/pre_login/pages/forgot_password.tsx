@@ -6,21 +6,25 @@ import { resetPassword } from 'aws-amplify/auth';
 import { Amplify } from 'aws-amplify';
 import outputs from "@/amplify_outputs.json";
 import useSessionStorage from '@/lib/hooks/use_sessionstorage';
+import { useRouter } from 'next/navigation';
 
 Amplify.configure(outputs);
 
 
 const ForgotPasswordPage = () => {
 
+  const router  = useRouter();
   const [validUser, setValidUser] = useState<boolean>(true);
+  const [buttonLoader,setButtonLoader] = useState<boolean>(false);
   const [store, setStorage] = useSessionStorage<string>('email_verfication');
 
   const handleSubmit = async(email:string) => {
     setStorage(email)
+    setButtonLoader(true);
     const output = await resetPassword({
       username: email
     });
-    
+  
     const { nextStep } = output;
     switch (nextStep.resetPasswordStep) {
       case 'CONFIRM_RESET_PASSWORD_WITH_CODE':
@@ -34,12 +38,13 @@ const ForgotPasswordPage = () => {
         console.log('Successfully reset password.');
         break;
     }
-    setValidUser(false);
+    setButtonLoader(false);
+    router.push('/client/forgot_pass/reset_pass')
   }
 
   return (
     <>
-      { validUser ? <SendEmail onSubmit = {handleSubmit} /> : <VerifyEmail/> }
+      <SendEmail onSubmit = {handleSubmit} buttonLoader={buttonLoader} /> 
     </>
   );
 }

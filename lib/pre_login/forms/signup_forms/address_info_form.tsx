@@ -55,10 +55,11 @@ export const SignUpAddressInfoLabelData:SignUpPageLabelDataValues[] =[
 
 export interface AddressInfoProps {
   onSubmit:() => void,
-  moveBack:() => void
+  moveBack:() => void,
+  buttonLoader:boolean
 }
 
-const AddressInfoForm = ({onSubmit, moveBack}:AddressInfoProps) => {
+const AddressInfoForm = ({onSubmit, moveBack,buttonLoader}:AddressInfoProps) => {
   
   const [data, setData] = useState<Array<{ id: string; type: string; value: string | string[] | number; error: 'EMPTY' | 'FORMAT' | null }>>(
     SignUpAddressInfoLabelData.map((field: SignUpPageLabelDataValues) => ({
@@ -217,7 +218,7 @@ const AddressInfoForm = ({onSubmit, moveBack}:AddressInfoProps) => {
 
         {/* Verification Section */}
         <Flex mt = {'24px'}>
-          <ButtonField textValue = {'Continue'} />
+          <ButtonField textValue = {'Continue'} buttonLoader={buttonLoader} />
         </Flex>
       </form>
 

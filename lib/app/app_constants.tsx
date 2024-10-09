@@ -1,3 +1,4 @@
+import { fonts } from "./chakra_theme";
 
 /* Max Width */
 export const LIST_FORM_DATA_MAX_WIDTH = '426px';
@@ -87,20 +88,20 @@ export const LOGIN_INPUT_FIELD_PADDING = '12px';
 
 
 //Pre-Login Page
-export const PRE_LOGIN_PAGE_HEADING_FONT_FAMILY = 'montserrat';
+export const PRE_LOGIN_PAGE_HEADING_FONT_FAMILY = fonts.montserrat;
 export const PRE_LOGIN_PAGE_HEADING_FONT_SIZE = '24px';
 export const PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT = '700';
 export const PRE_LOGIN_PAGE_HEADING_TEXT_COLOR = 'rgba(255, 255, 255, 1)';
 
-export const PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY = 'montserrat';
+export const PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY = fonts.montserrat
 export const PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE = '20px';
 export const PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT = '400';
 
-export const PRE_LOGIN_PAGE_BODY_FONT_FAMILY = 'helvetica';
+export const PRE_LOGIN_PAGE_BODY_FONT_FAMILY = fonts.helvetica;
 export const PRE_LOGIN_PAGE_BODY_FONT_SIZE = '16px';
 export const PRE_LOGIN_PAGE_BODY_FONT_WEIGHT = '400';
 
-export const PRE_LOGIN_LABEL_TEXT_FONT_FAMILY = 'montserrat';
+export const PRE_LOGIN_LABEL_TEXT_FONT_FAMILY = fonts.montserrat
 export const PRE_LOGIN_LABEL_TEXT_FONT_SIZE = '16px';
 export const PRE_LOGIN_LABEL_TEXT_FONT_WEIGHT = '500';
 export const PRE_LOGIN_INPUT_BORDER_COLOR = 'rgba(215, 220, 224, 1)';
@@ -108,11 +109,11 @@ export const PRE_LOGIN_INPUT_TEXT_COLOR = 'rgba(45, 54, 72, 1)';
 export const PRE_LOGIN_INPUT_BACKGROUND_COLOR = 'rgba(255, 255, 255, 1)';
 export const PRE_LOGIN_INPUT_ICON_COLOR = 'rgba(0, 0, 0, 0.25)';
 
-export const PRE_LOGIN_ERROR_MESSAGE_FONT_FAMILY = 'helvetica';
+export const PRE_LOGIN_ERROR_MESSAGE_FONT_FAMILY = fonts.helvetica
 export const PRE_LOGIN_ERROR_MESSAGE_FONT_SIZE = '16px';
 export const PRE_LOGIN_ERROR_MESSAGE_FONT_WEIGHT = '400';
 
-export const PRE_LOGIN_BUTTON_TEXT_FONT_FAMILY = 'montserrat';
+export const PRE_LOGIN_BUTTON_TEXT_FONT_FAMILY = fonts.montserrat;
 export const PRE_LOGIN_BUTTON_TEXT_FONT_SIZE = '18px';
 export const PRE_LOGIN_BUTTON_TEXT_FONT_WEIGHT = '700';
 export const PRE_LOGIN_BUTTON_TEXT_COLOR = 'rgba(0, 0, 0, 1)';

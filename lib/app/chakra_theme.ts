@@ -21,32 +21,31 @@ export const montserrat = Montserrat({
 // export const montserrat = localFont({
 //   src: [
 //     {
-//       path: '../../public/fonts/Montserrat-Light.ttf',
+//       path: '../../public/fonts/Montserrat/Montserrat-Light.ttf',
 //       weight: '300'
 //     },
 //     {
-//       path: '../../public/fonts/Montserrat-Regular.ttf',
+//       path: '../../public/fonts/Montserrat/Montserrat-Regular.ttf',
 //       weight: '400'  // Book (often considered Regular)
 //     },
-    
 //     {
 //       path: '../../public/fonts/Montserrat-Medium.ttf',
 //       weight: '500'
 //     },
 //     {
-//       path: '../../public/fonts/Montserrat-SemiBold.ttf',
+//       path: '../../public/fonts/Montserrat/Montserrat-SemiBold.ttf',
 //       weight: '600'
 //     },
 //     {
-//       path: '../../public/fonts/Montserrat-Bold.ttf',
+//       path: '../../public/fonts/Montserrat/Montserrat-Bold.ttf',
 //       weight: '700'  // Heavy (commonly Bold or Semi Bold)
 //     },
 //     {
-//       path: '../../public/fonts/Montserrat-ExtraBold.ttf',
+//       path: '../../public/fonts/Montserrat/Montserrat-ExtraBold.ttf',
 //       weight: '800'  // Book (often considered Regular)
 //     },
 //     {
-//       path: '../../public/fonts/Montserrat-Black.ttf',
+//       path: '../../public/fonts/Montserrat/Montserrat-Black.ttf',
 //       weight: '900'
 //     },
 //   ],
@@ -56,23 +55,23 @@ export const montserrat = Montserrat({
 export const avenir = localFont({
   src: [
     {
-      path: '../../public/fonts/Avenir-Light.ttf',
+      path: '../../public/fonts/Avenir/Avenir-Light.ttf',
       weight: '300'
     },
     {
-      path: '../../public/fonts/Avenir-Book.ttf',
+      path: '../../public/fonts/Avenir/Avenir-Book.ttf',
       weight: '400'  // Book (often considered Regular)
     },
     {
-      path: '../../public/fonts/Avenir-Medium.ttf',
+      path: '../../public/fonts/Avenir/Avenir-Medium.ttf',
       weight: '500'
     },
     {
-      path: '../../public/fonts/Avenir-Heavy.ttf',
+      path: '../../public/fonts/Avenir/Avenir-Heavy.ttf',
       weight: '700'  // Heavy (commonly Bold or Semi Bold)
     },
     {
-      path: '../../public/fonts/Avenir-Black.ttf',
+      path: '../../public/fonts/Avenir/Avenir-Black.ttf',
       weight: '900'
     }
   ],

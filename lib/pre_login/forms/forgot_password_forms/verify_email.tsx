@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 
 
-const VerifyEmail = () => {
+const VerifyEmail = ({store}:{store:string}) => {
   const router  = useRouter();
   // useEffect(()=>{
   //   setTimeout(()=>{
@@ -18,7 +18,7 @@ const VerifyEmail = () => {
     <Flex flexDir = {'column'}  w = {'100%'}  gap = {'40px'}>
       <Flex flexDir = {'column'} gap = {['4px','4px','16px']} color = {PRE_LOGIN_PAGE_HEADING_TEXT_COLOR}>
         <Heading fontFamily = {PRE_LOGIN_PAGE_HEADING_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT}>Check your Email</Heading>
-        <Text fontFamily = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT}>We have sent Password Recovery instructions to your email: joe.allen@gmail.com</Text>
+        <Text fontFamily = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT}>We have sent Password Recovery instructions to your email: {store}</Text>
       </Flex>
       <Flex onClick={()=>{ router.push('/client/forgot_pass/reset_pass')}}>
       <ButtonField textValue = {"Next Page"} />

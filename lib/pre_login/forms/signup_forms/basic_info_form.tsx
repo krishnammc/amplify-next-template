@@ -1,13 +1,14 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { BUTTON_BG, PRE_LOGIN_PAGE_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_BODY_FONT_WEIGHT, PRE_LOGIN_PAGE_BODY_FONT_FAMILY, PRE_LOGIN_PAGE_BODY_FONT_SIZE, PRE_LOGIN_LINK_HOVER_COLOR, PRE_LOGIN_PAGE_HEADING_TEXT_COLOR, PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT, PRE_LOGIN_BUTTON_TEXT_FONT_FAMILY, PRE_LOGIN_BUTTON_TEXT_FONT_SIZE, PRE_LOGIN_BUTTON_TEXT_FONT_WEIGHT } from '@/lib/app/app_constants';
-import { Flex, Heading, SimpleGrid, GridItem, Text } from '@chakra-ui/react';
+import { Flex, Heading, SimpleGrid, GridItem, Text, Alert, AlertIcon } from '@chakra-ui/react';
 import Link from 'next/link';
 import { validateField } from '@/lib/utlils/utill_methods';
 import TextField from '../../components/text_field';
 import ButtonField from '../../components/button_field';
 import useSessionStorage from '@/lib/hooks/use_sessionstorage';
 import { SignUpPageLabelDataValues } from '@/lib/interfaces/incorporation/pre_login_form/interfaces';
+import { fonts } from '@/lib/app/chakra_theme';
 
 export const SignUpBasicInfoLabelData:SignUpPageLabelDataValues[] = [
   {
@@ -74,9 +75,10 @@ export const SignUpBasicInfoLabelData:SignUpPageLabelDataValues[] = [
 
 export interface BasicInfoProps {
   onSubmit:() => void
+  buttonLoader:boolean
 }
 
-const BasicInfoForm = ({onSubmit}:BasicInfoProps) => {
+const BasicInfoForm = ({onSubmit,buttonLoader}:BasicInfoProps) => {
 
   const [data, setData] = useState<Array<{ id: string; type: string; value: string | string[] | number; error: 'EMPTY' | 'FORMAT' | null }>>(
     SignUpBasicInfoLabelData.map((field: SignUpPageLabelDataValues) => ({
@@ -156,10 +158,11 @@ const BasicInfoForm = ({onSubmit}:BasicInfoProps) => {
   return (
     <>
       <Flex flexDir = {'column'} gap = {['4px', '4px', '16px']} color = {PRE_LOGIN_PAGE_HEADING_TEXT_COLOR}>
-        <Heading title = {'Montserrat Bold 24px'} fontFamily = {PRE_LOGIN_PAGE_HEADING_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT}>Let’s create your account</Heading>
+        <Heading  fontFamily = {fonts.montserrat} fontSize = {PRE_LOGIN_PAGE_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT}>Let’s create your account</Heading>
         <Text title = {'Montserrat Regular 20px'} fontFamily = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT}>Enter your identity information</Text>
       </Flex>
 
+   
       <form onSubmit = {handleSubmit}>
         {/* Sign Up Page Input Field */}
         <SimpleGrid columns = {2} w = {'100%'} rowGap = {'16px'} columnGap = {'16px'}>
@@ -186,7 +189,7 @@ const BasicInfoForm = ({onSubmit}:BasicInfoProps) => {
 
         {/* Verification Section */}
         <Flex mt = {'24px'}>
-          <ButtonField textValue = {'Continue'} />
+          <ButtonField textValue = {'Continue'}  buttonLoader={buttonLoader}/>
         </Flex>
       </form>
 

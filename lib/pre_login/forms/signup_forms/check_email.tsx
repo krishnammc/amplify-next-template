@@ -35,6 +35,7 @@ const CheckEmail = ({onSubmit,email}:CheckEmailProps) => {
   const handleSubmit = () => {
     onSubmit();
   }
+  
   return (
     <Flex flexDir = {'column'}  w = {'100%'}  gap = {'40px'}>
 

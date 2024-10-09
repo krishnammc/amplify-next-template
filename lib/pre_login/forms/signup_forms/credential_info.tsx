@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { FieldValidationType, formatValidate, validateField } from '@/lib/utlils/utill_methods';
 import TextField from '../../components/text_field';
-import { Button, Flex, GridItem, Heading, SimpleGrid, Text } from '@chakra-ui/react';
+import { Alert, AlertIcon, Button, Flex, GridItem, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import ButtonField from '../../components/button_field';
 import { BUTTON_BG, HEADING_FONT_SIZE, LABEL_TEXT_FONT_WEIGHT, SUB_HEADING_FONT_SIZE, TEXT_FONT_WEIGHT, TEXT_FONT_SIZE, TEXT_COLOR, PRE_LOGIN_PAGE_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_HEADING_TEXT_COLOR, PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT, PRE_LOGIN_BUTTON_BACKGROUND_COLOR, PRE_LOGIN_ALTERNATE_BUTTON_TEXT_COLOR, PRE_LOGIN_BUTTON_TEXT_FONT_FAMILY, PRE_LOGIN_BUTTON_TEXT_FONT_SIZE, PRE_LOGIN_BUTTON_TEXT_FONT_WEIGHT, PRE_LOGIN_BUTTON_TEXT_COLOR } from '@/lib/app/app_constants';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
@@ -50,10 +50,12 @@ export const SignUpCredentialInfoLabelData:SignUpPageLabelDataValues[] = [
 
 export interface CredentialInfoProps {
   onSubmit:() => void,
-  moveBack:() => void
+  moveBack:() => void,
+  buttonLoader:boolean,
+  regError:boolean
 }
 
-const CredentialInfo = ({onSubmit, moveBack}:CredentialInfoProps) => {
+const CredentialInfo = ({onSubmit, moveBack,buttonLoader,regError}:CredentialInfoProps) => {
 
   const [data, setData] = useState<Array<{ id: string; type: string; format:FieldValidationType; value: string | string[] | number; error: 'EMPTY' | 'FORMAT' | null }>>(
     SignUpCredentialInfoLabelData.map((field: SignUpPageLabelDataValues) => ({
@@ -209,7 +211,15 @@ const CredentialInfo = ({onSubmit, moveBack}:CredentialInfoProps) => {
         <Text fontFamily = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT}>Enter your credential information</Text>
       </Flex>
 
+
       <form onSubmit = {handleSubmit}>
+      {
+        regError && <Alert borderRadius={"4px"} mb={"20px"} status='error' color={"#000"}>
+          <AlertIcon />
+          User already registered
+        </Alert>
+      }
+
         {/* Sign Up Page Input Field */}
         <SimpleGrid columns = {2} w = {'100%'} rowGap = {'16px'} columnGap = {'16px'}>
           {
@@ -241,7 +251,7 @@ const CredentialInfo = ({onSubmit, moveBack}:CredentialInfoProps) => {
 
         {/* Verification Section */}
         <Flex mt = {'24px'}>
-          <ButtonField textValue = {'Sign Up'} />
+          <ButtonField textValue = {'Sign Up'}  buttonLoader={buttonLoader} />
         </Flex>
       </form>
 

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import TextField from '../../components/text_field';
-import { BUTTON_BG, HEADING_FONT_SIZE, INPUT_TEXT_COLOR, LABEL_TEXT_FONT_SIZE, LABEL_TEXT_FONT_WEIGHT, LOGIN_INPUT_FIELD_PADDING, SUB_HEADING_FONT_SIZE, INPUT_BORDER_COLOR, TEXT_FONT_SIZE, TEXT_FONT_WEIGHT, PRE_LOGIN_PAGE_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_HEADING_TEXT_COLOR, PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT } from '@/lib/app/app_constants';
-import { Flex, FormControl, FormErrorMessage, FormLabel, GridItem, Heading, Input, SimpleGrid, Text } from '@chakra-ui/react';
+import { BUTTON_BG, HEADING_FONT_SIZE, INPUT_TEXT_COLOR, LABEL_TEXT_FONT_SIZE, LABEL_TEXT_FONT_WEIGHT, LOGIN_INPUT_FIELD_PADDING, SUB_HEADING_FONT_SIZE, INPUT_BORDER_COLOR, TEXT_FONT_SIZE, TEXT_FONT_WEIGHT, PRE_LOGIN_PAGE_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_HEADING_TEXT_COLOR, PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY, PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE, PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT, PRE_LOGIN_PAGE_BODY_FONT_FAMILY, PRE_LOGIN_PAGE_BODY_FONT_SIZE, PRE_LOGIN_PAGE_BODY_FONT_WEIGHT } from '@/lib/app/app_constants';
+import { Alert, AlertIcon, Flex, FormControl, FormErrorMessage, FormLabel, GridItem, Heading, Input, SimpleGrid, Text, useToast } from '@chakra-ui/react';
 import { formatValidate, validateField } from '@/lib/utlils/utill_methods';
 import ButtonField from '../../components/button_field';
 import { FieldValidationType, ForgotPasswordPageLabelDataValues } from '@/lib/interfaces/incorporation/pre_login_form/interfaces';
 import useSessionStorage from '@/lib/hooks/use_sessionstorage';
 import CheckBox from '../../components/checkbox_field';
 import { format } from 'path';
+import { resetPassword } from 'aws-amplify/auth';
 
 export const ForgotPasswordPageLabelData:ForgotPasswordPageLabelDataValues[] = [
   {
@@ -59,9 +60,15 @@ export const ForgotPasswordPageLabelData:ForgotPasswordPageLabelDataValues[] = [
 
 export interface updatePassProps {
   onSubmit:(password:string,code:string) => void
+  buttonLoader:boolean
+  email:string
+  codeError:"INVALID"|"USED"|null
+  setCodeError:(data:"INVALID"|"USED"|null)=>void
 }
 
-const CreateNewPassword = ({onSubmit}:updatePassProps) => {
+const CreateNewPassword = ({onSubmit,buttonLoader,email,codeError,setCodeError}:updatePassProps) => {
+ 
+  const toast = useToast();
  
   const [data, setData] = useState(
     ForgotPasswordPageLabelData.map((field:ForgotPasswordPageLabelDataValues) => {
@@ -80,6 +87,7 @@ const CreateNewPassword = ({onSubmit}:updatePassProps) => {
     const tempData: typeof data = JSON.parse(JSON.stringify(data));
     const index = tempData.findIndex((field) => field.id == id);
 
+    setCodeError(null)
     if (index < 0) return;
 
     const value: string = event.target.value;
@@ -196,6 +204,36 @@ const CreateNewPassword = ({onSubmit}:updatePassProps) => {
     return tempData.every((input) => input.error == null);
   }
 
+  async function resendConfirmationCode() {
+  
+    const output = await resetPassword({
+      username: email
+    });
+  
+    const { nextStep } = output;
+    switch (nextStep.resetPasswordStep) {
+      case 'CONFIRM_RESET_PASSWORD_WITH_CODE':
+        const codeDeliveryDetails = nextStep.codeDeliveryDetails;
+        console.log(
+          `Confirmation code was sent to ${codeDeliveryDetails.deliveryMedium}`
+        );
+        toast({
+          title: 'Resended Verfication Code',
+          description: "Verfication code is send to the registered email",
+          status: 'success',
+          duration: 5000,
+          position:'top',
+          isClosable: true,
+        });
+    
+        // Collect the confirmation code from the user and pass to confirmResetPassword.
+        break;
+      case 'DONE':
+        console.log('Successfully reset password.');
+        break;
+    }
+}
+
   
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -204,14 +242,21 @@ const CreateNewPassword = ({onSubmit}:updatePassProps) => {
     console.log("Answer Data :", data);
     onSubmit(data[0].value as string,data[2].value as string);
   }
-console.log(data)
+
   return (
     <>
       <Flex flexDir = {'column'} gap = {['4px', '4px', '16px']} color = {PRE_LOGIN_PAGE_HEADING_TEXT_COLOR}>
         <Heading fontFamily = {PRE_LOGIN_PAGE_HEADING_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_HEADING_FONT_WEIGHT}>Reset your password</Heading>
         <Text fontFamily = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_SUB_HEADING_FONT_WEIGHT}>Your new password should be different from previous used passwords</Text>
       </Flex>
+      
       <form onSubmit = {handleSubmit}>
+      {
+        codeError !== null && <Alert mb={"20px"} borderRadius={"4px"}  status='error' color={"#000"}>
+          <AlertIcon />
+          {codeError == "INVALID" ? "Invalid verification code": "The verification code has already been used"}
+        </Alert>
+      }
         {/* Forgot Page Create New Password section */}
         <SimpleGrid columns = {2} w = {'100%'} rowGap = {'16px'} columnGap = {'16px'}>
           {
@@ -243,9 +288,22 @@ console.log(data)
 
         {/* Verification Section */}
         <Flex mt = {'24px'}>
-          <ButtonField textValue = {'Sign Up'} />
+          <ButtonField textValue = {'Sign Up'} buttonLoader={buttonLoader} />
         </Flex>
       </form>
+      <Flex flexDir = {'column'}  fontFamily = {PRE_LOGIN_PAGE_BODY_FONT_FAMILY} fontSize = {PRE_LOGIN_PAGE_BODY_FONT_SIZE} fontWeight = {PRE_LOGIN_PAGE_BODY_FONT_WEIGHT} w= '100%' justifyContent = {'center'} alignItems={'center'} gap = {'12px'}>
+          {/* <Text >Don’t receive the email? try again
+          </Text> */}
+
+          {/* <Button onClick = {resendConfirmationCode} w = {'100%'} h = {'40px'} borderWidth = {'1px'} borderColor = {PRE_LOGIN_BUTTON_BORDER_COLOR} borderRadius = {'4px'} bg = {PRE_LOGIN_ALTERNATE_BUTTON_BACKGROUND_COLOR}  >
+            <Text color = {PRE_LOGIN_ALTERNATE_BUTTON_TEXT_COLOR} fontFamily = {PRE_LOGIN_BUTTON_TEXT_FONT_FAMILY} fontSize = {PRE_LOGIN_BUTTON_TEXT_FONT_SIZE} fontWeight = {PRE_LOGIN_BUTTON_TEXT_FONT_WEIGHT}>Resend Code</Text>
+          </Button>  */}
+
+        <Flex onClick = {resendConfirmationCode} w={"100%"}>
+          <ButtonField textValue = {"Resend Email"} />
+        </Flex>
+        
+      </Flex>
     </>
   );
 }

@@ -12,7 +12,8 @@ import TextField from '../../components/text_field';
 
 
 export interface CheckEmailProps {
-  onSubmit:(email:string) => void
+  onSubmit:(email:string) => void,
+  buttonLoader:boolean
 }
 
 export const ForgotPasswordLabelData: ForgotPasswordPageLabelDataValues[] = [
@@ -29,7 +30,7 @@ export const ForgotPasswordLabelData: ForgotPasswordPageLabelDataValues[] = [
 ]
 
 
-const SendEmail = ({onSubmit}:CheckEmailProps) => {
+const SendEmail = ({onSubmit,buttonLoader}:CheckEmailProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const router = useRouter();
@@ -115,7 +116,7 @@ const SendEmail = ({onSubmit}:CheckEmailProps) => {
             }
             
             {/* Sign In Button */}
-            <ButtonField textValue = {"Continue"} />
+            <ButtonField textValue = {"Continue"}  buttonLoader={buttonLoader} />
 
           </Flex>
         </form>

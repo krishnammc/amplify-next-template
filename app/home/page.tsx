@@ -1,37 +1,36 @@
-"use client"
-import React, { FormEvent, useEffect, useState } from 'react'
-import { useAuthenticator, withAuthenticator } from '@aws-amplify/ui-react';
-import { confirmSignUp, fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
- import { Hub } from 'aws-amplify/utils';
-import { Amplify } from 'aws-amplify';
-import { signOut } from 'aws-amplify/auth';
-import { Button, Flex, Text } from '@chakra-ui/react';
-import outputs from "@/amplify_outputs.json";
-import { useRouter } from 'next/navigation';
-import useCurrentUser from '@/lib/hooks/use_currentuser';
+import Dashboard from "@/lib/pages/dashboard";
 
 
-Amplify.configure(outputs);
+
+
+// Amplify.configure(outputs);
 
 
   function page () {
 
-  const router = useRouter()
-  const [state,setState]= useState(0);
- 
-  const { session, loading, error } = useCurrentUser();
-  console.log(session);
+  // const router = useRouter()
+  // const [state,setState]= useState(0);
+  // const cloudTrail = rememberDevice()
+  // .then((result) => {
+  //   console.log(result)
+  // })
+  // .catch((error) => {
+  //   console.error(error);
+  // });
+  // const { session, loading, error } = useCurrentUser();
+  // console.log(cloudTrail);
 
-  async function handleSignOut() {
-    await signOut({ global: true })
-    router.push("/client/login")
-  }
+
+
+  // async function handleSignOut() {
+  //   await signOut({ global: true })
+  //   router.push("/client/login")
+  // }
 
   return (
-    <Flex bg={"black"} w={"100vw"} h={"100vh"} alignItems={"center"} justifyContent={"center"}>
-      <Text>{}</Text>
-      <Button onClick={()=>{handleSignOut()}}>Sign out</Button>
-    </Flex>
+    <>
+    <Dashboard />
+    </>
   )
 }
 

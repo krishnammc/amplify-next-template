@@ -11,6 +11,7 @@ const OnBoardingPage = () => {
 
   const router = useRouter();
   const toast = useToast();
+  const [buttonLoader,setButtonLoader]=useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<{ id: string; label: string } | null>(null);
   
   //Getting OnBoarding Page Data
@@ -23,6 +24,7 @@ const OnBoardingPage = () => {
 
   //Submit the Selected Data
   const handleSubmit = () => {
+    setButtonLoader(true);
     if (!selectedOption) {
       toast({
         title: 'Please Select an option',
@@ -38,6 +40,7 @@ const OnBoardingPage = () => {
       localStorage.setItem("OnBoardingPage Value", JSON.stringify(selectedOption));
       router.push('/client/signup');
     }
+    setButtonLoader(false);
   }
 
   return (
@@ -94,7 +97,7 @@ const OnBoardingPage = () => {
             <ButtonField textValue = {'Contact Us'} />
           </Flex>
         </Flex>
-        <Button w = {'62px'} h = {'40px'} gap = {'5px'} onClick = {handleSubmit} isDisabled = {!selectedOption} borderWidth = {'1px'} borderRadius = {'6px'} bg={BUTTON_LINEAR_RIGHT_COLOR}  /* bgGradient = {`linear(180deg, ${BUTTON_LINEAR_LEFT_COLOR}, ${BUTTON_LINEAR_RIGHT_COLOR})`} */ borderColor = {FILE_BORDER_COLOR}>
+        <Button w = {'62px'} h = {'40px'} isLoading={buttonLoader} gap = {'5px'} onClick = {handleSubmit} isDisabled = {!selectedOption} borderWidth = {'1px'} borderRadius = {'6px'} bg={BUTTON_LINEAR_RIGHT_COLOR}  /* bgGradient = {`linear(180deg, ${BUTTON_LINEAR_LEFT_COLOR}, ${BUTTON_LINEAR_RIGHT_COLOR})`} */ borderColor = {FILE_BORDER_COLOR}>
           <Text color = {BUTTON_TEXT_COLOR} fontSize = {TEXT_FONT_SIZE} fontWeight = {BUTTON_TEXT_FONT_WEIGHT} >Next</Text>
         </Button>
       </Flex>

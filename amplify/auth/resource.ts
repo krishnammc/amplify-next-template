@@ -13,9 +13,11 @@ export const auth = defineAuth({
     email: {
       verificationEmailStyle: "CODE",
       verificationEmailSubject: "Welcome to my app!",
-      verificationEmailBody: (createCode) => `Use this code to confirm your account: ${createCode()},Welcome to the APP!!!!!`,
+      verificationEmailBody: (createCode) => `Use this code to confirm your account: ${createCode()}, Welcome to the APP!!!!!` ,
     },
+    
   },
+  
   
 
   accountRecovery: 'EMAIL_ONLY',

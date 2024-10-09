@@ -23,11 +23,7 @@ export const auth = defineAuth({
   accountRecovery: 'EMAIL_ONLY',
 
   userAttributes: {
-    
-    preferredUsername: {
-      mutable: true,
-      required: false
-    },email:{
+    email:{
       mutable: true,
       required: true,
       

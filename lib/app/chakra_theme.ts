@@ -14,8 +14,10 @@ export const montserrat = Montserrat({
     '600',  //Semi Bold
     '700',  //Bold
     '800',  //Extra Bold
-    '900'   //Black
+    '900'       //Black
   ],
+
+  
 });
 
 // export const montserrat = localFont({
